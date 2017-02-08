@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCTypeScriptReact3", "MVCTypeScriptReact3\MVCTypeScriptReact3.csproj", "{2908FBCA-A126-4D77-A212-8A4D7CA6102B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiCaller", "WebApiCaller\WebApiCaller.csproj", "{147CA949-6824-48FA-BAD8-9C9D35AEADD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCTypeScriptReact.Model", "MVCTypeScriptReact.Model\MVCTypeScriptReact.Model.csproj", "{226A2737-E2B5-4EEB-8626-E3A0651DFB4D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2908FBCA-A126-4D77-A212-8A4D7CA6102B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2908FBCA-A126-4D77-A212-8A4D7CA6102B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2908FBCA-A126-4D77-A212-8A4D7CA6102B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2908FBCA-A126-4D77-A212-8A4D7CA6102B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{147CA949-6824-48FA-BAD8-9C9D35AEADD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{147CA949-6824-48FA-BAD8-9C9D35AEADD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{147CA949-6824-48FA-BAD8-9C9D35AEADD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{147CA949-6824-48FA-BAD8-9C9D35AEADD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{226A2737-E2B5-4EEB-8626-E3A0651DFB4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{226A2737-E2B5-4EEB-8626-E3A0651DFB4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{226A2737-E2B5-4EEB-8626-E3A0651DFB4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{226A2737-E2B5-4EEB-8626-E3A0651DFB4D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

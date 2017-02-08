@@ -1,0 +1,7 @@
+{
+  "globalDependencies": {
+    "react": "registry:dt/react#0.14.0+20161024223416",
+    "react-dom": "registry:dt/react-dom#0.14.0+20160412154040",
+    "showdown": "registry:dt/showdown#1.4.1+20160608102004"
+  }
+}

@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+
+<h1>Hello World</h1>
+<div id="body">
+    <script src="@VirtualPathUtility.ToAbsolute("~/Scripts/dist/page1.bundle.js")"></script>
+    @Scripts.Render("~/Scripts/dist/page2.bundle.js")
+</div>
