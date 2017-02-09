@@ -21486,6 +21486,7 @@
 	var CommentList_1 = __webpack_require__(179);
 	var CommentForm_1 = __webpack_require__(182);
 	var LoginForm_1 = __webpack_require__(183);
+	var ErrorBox_1 = __webpack_require__(184);
 	var CommentModel = (function () {
 	    function CommentModel() {
 	    }
@@ -21501,7 +21502,9 @@
 	        var data = [];
 	        this.state = {
 	            data: data,
-	            isLogged: false
+	            isLogged: false,
+	            isErrorVisible: false,
+	            errorMessage: ""
 	        };
 	    }
 	    CommentBox.prototype.loadCommentsFromServer = function () {
@@ -21510,7 +21513,9 @@
 	        xhr.onload = function () {
 	            var data = JSON.parse(xhr.responseText);
 	            var isLogged = this.state.isLogged;
-	            this.setState({ data: data, isLogged: isLogged });
+	            var isErrorVisible = this.state.isErrorVisible;
+	            var errorMessage = this.state.errorMessage;
+	            this.setState({ data: data, isLogged: isLogged, isErrorVisible: isErrorVisible, errorMessage: errorMessage });
 	        }.bind(this);
 	        xhr.send();
 	    };
@@ -21521,10 +21526,15 @@
 	        var xhr = new XMLHttpRequest();
 	        xhr.open('post', this.props.submitUrl, true);
 	        xhr.onload = function () {
-	            if (xhr.responseText == "unauthorized") {
+	            if (xhr.responseText == "ok") {
 	                var data_1 = this.state.data;
-	                var isLogged = false;
-	                this.setState({ data: data_1, isLogged: isLogged }, function () { this.loadCommentsFromServer(); });
+	                var isLogged = this.state.isLogged;
+	                var isErrorVisible = false;
+	                var errorMessage = "";
+	                this.setState({ data: data_1, isLogged: isLogged, isErrorVisible: isErrorVisible, errorMessage: errorMessage });
+	            }
+	            else {
+	                this.handleUnsucceedResponse(xhr.responseText);
 	            }
 	            this.loadCommentsFromServer();
 	        }.bind(this);
@@ -21535,13 +21545,17 @@
 	        var xhr = new XMLHttpRequest();
 	        xhr.open('post', this.props.loginUrl, true);
 	        xhr.onload = function () {
-	            var data = this.state.data;
-	            var isLogged;
-	            if (xhr.responseText == "ok")
-	                isLogged = true;
-	            else
-	                isLogged = false;
-	            this.setState({ data: data, isLogged: isLogged });
+	            if (xhr.responseText == "ok") {
+	                var data_2 = this.state.data;
+	                var isLogged = true;
+	                var isErrorVisible = false;
+	                var errorMessage = "";
+	                this.setState({ data: data_2, isLogged: isLogged, isErrorVisible: isErrorVisible, errorMessage: errorMessage });
+	                this.loadCommentsFromServer();
+	            }
+	            else {
+	                this.handleUnsucceedResponse(xhr.responseText);
+	            }
 	        }.bind(this);
 	        xhr.send(data);
 	    };
@@ -21549,9 +21563,29 @@
 	        this.loadCommentsFromServer();
 	        window.setInterval(this.loadCommentsFromServer, this.props.pollInterval);
 	    };
+	    CommentBox.prototype.handleUnsucceedResponse = function (responseText) {
+	        var data;
+	        var isLogged;
+	        var isErrorVisible;
+	        var errorMessage;
+	        if (responseText == "unauthorized") {
+	            data = this.state.data;
+	            isLogged = false;
+	            isErrorVisible = false;
+	            errorMessage = "";
+	        }
+	        else {
+	            data = this.state.data;
+	            isLogged = this.state.isLogged;
+	            isErrorVisible = true;
+	            errorMessage = responseText;
+	        }
+	        this.setState({ data: data, isLogged: isLogged, isErrorVisible: isErrorVisible, errorMessage: errorMessage });
+	    };
 	    CommentBox.prototype.render = function () {
 	        return (React.createElement("div", {className: "commentBox"}, 
 	            React.createElement(LoginForm_1.LoginForm, {onLoginSubmit: this.handleLoginSubmit, isLogged: this.state.isLogged}), 
+	            React.createElement(ErrorBox_1.ErrorBox, {isVisible: this.state.isErrorVisible, errorMessage: this.state.errorMessage}), 
 	            React.createElement("h1", null, "Comments"), 
 	            React.createElement(CommentList_1.CommentList, {data: this.state.data}), 
 	            React.createElement(CommentForm_1.CommentForm, {onCommentSubmit: this.handleCommentSubmit})));
@@ -24457,11 +24491,6 @@
 	        _super.call(this, props, context);
 	        this.handleSubmit = this.handleSubmit.bind(this);
 	    }
-	    LoginForm.prototype.updateState = function (isLogged) {
-	        this.setState({
-	            isLogged: isLogged
-	        });
-	    };
 	    LoginForm.prototype.handleSubmit = function (e) {
 	        e.preventDefault();
 	        this.props.onLoginSubmit();
@@ -24482,6 +24511,45 @@
 	    return LoginForm;
 	}(React.Component));
 	exports.LoginForm = LoginForm;
+
+
+/***/ },
+/* 184 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var React = __webpack_require__(1);
+	var ErrorBox = (function (_super) {
+	    __extends(ErrorBox, _super);
+	    function ErrorBox(props, context) {
+	        _super.call(this, props, context);
+	    }
+	    ErrorBox.prototype.render = function () {
+	        var visibleStyle = {
+	            visibility: "visible",
+	            borderStyle: "solid",
+	            borderColor: "#b94a48",
+	            borderRadius: 5,
+	            padding: "5px",
+	            display: "inline-block"
+	        };
+	        var invisibleStyle = {
+	            visibility: "hidden"
+	        };
+	        var errorMessages = this.props.errorMessage.split("|");
+	        var errors = errorMessages.map(function (errorMessage) {
+	            return (React.createElement("div", null, errorMessage));
+	        });
+	        return (React.createElement("div", {style: this.props.isVisible ? visibleStyle : invisibleStyle}, errors));
+	    };
+	    return ErrorBox;
+	}(React.Component));
+	exports.ErrorBox = ErrorBox;
 
 
 /***/ }

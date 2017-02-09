@@ -3,6 +3,7 @@ import * as ReactDOM from "react-dom";
 import {CommentList} from "./CommentList";
 import {CommentForm} from "./CommentForm";
 import {LoginForm} from "../Login/LoginForm";
+import {ErrorBox} from "../ErrorBox/ErrorBox";
 import {IComment} from "./Comment";
 
 export interface ICommentBoxProps {
@@ -13,8 +14,10 @@ export interface ICommentBoxProps {
 }
 
 export interface ICommentBoxState {
-    isLogged: boolean;
-    data: CommentModel[]
+    isLogged: boolean,
+    data: CommentModel[],
+    isErrorVisible: boolean,
+    errorMessage: string
 }
 
 class CommentModel implements IComment {
@@ -32,7 +35,9 @@ export class CommentBox extends React.Component<ICommentBoxProps, ICommentBoxSta
         let data : CommentModel[] = [];
         this.state = {
             data: data,
-            isLogged : false
+            isLogged: false,
+            isErrorVisible: false,
+            errorMessage: ""
         }
 
     }
@@ -44,8 +49,10 @@ export class CommentBox extends React.Component<ICommentBoxProps, ICommentBoxSta
         xhr.onload = function () {
             let data = JSON.parse(xhr.responseText);
             let isLogged = this.state.isLogged;
+            let isErrorVisible = this.state.isErrorVisible;
+            let errorMessage = this.state.errorMessage;
 
-            this.setState({ data : data, isLogged : isLogged });
+            this.setState({ data: data, isLogged: isLogged, isErrorVisible: isErrorVisible, errorMessage: errorMessage });
         }.bind(this);
 
         xhr.send();
@@ -60,11 +67,16 @@ export class CommentBox extends React.Component<ICommentBoxProps, ICommentBoxSta
         xhr.open('post', this.props.submitUrl, true);
 
         xhr.onload = function () {
-            if (xhr.responseText == "unauthorized") {
+            if (xhr.responseText == "ok") {
                 let data = this.state.data;
-                let isLogged = false;
+                let isLogged = this.state.isLogged;
+                let isErrorVisible = false;
+                let errorMessage = "";
 
-                this.setState({ data: data, isLogged: isLogged }, function () { this.loadCommentsFromServer(); });
+                this.setState({ data: data, isLogged: isLogged, isErrorVisible: isErrorVisible, errorMessage: errorMessage });
+            }
+            else {
+                this.handleUnsucceedResponse(xhr.responseText);
             }
             this.loadCommentsFromServer();
         }.bind(this);
@@ -78,15 +90,19 @@ export class CommentBox extends React.Component<ICommentBoxProps, ICommentBoxSta
         xhr.open('post', this.props.loginUrl, true);
 
         xhr.onload = function () {
-            let data = this.state.data;
-            let isLogged: boolean;
+            if (xhr.responseText == "ok") {
+                let data = this.state.data;
+                let isLogged = true;
+                let isErrorVisible = false;
+                let errorMessage = "";
 
-            if (xhr.responseText == "ok")
-                isLogged = true;
-            else
-                isLogged = false;
+                this.setState({ data: data, isLogged: isLogged, isErrorVisible: isErrorVisible, errorMessage: errorMessage });
 
-            this.setState({ data: data, isLogged: isLogged });
+                this.loadCommentsFromServer();
+            }
+            else {
+                this.handleUnsucceedResponse(xhr.responseText);
+            }
         }.bind(this);
 
         xhr.send(data);
@@ -97,10 +113,33 @@ export class CommentBox extends React.Component<ICommentBoxProps, ICommentBoxSta
         window.setInterval(this.loadCommentsFromServer, this.props.pollInterval);
     }
 
+    handleUnsucceedResponse(responseText: string) {
+        let data: CommentModel[];
+        let isLogged: boolean;
+        let isErrorVisible: boolean;
+        let errorMessage: string;
+
+        if (responseText == "unauthorized") {
+            data = this.state.data;
+            isLogged = false;
+            isErrorVisible = false;
+            errorMessage = "";
+        }
+        else {
+            data = this.state.data;
+            isLogged = this.state.isLogged;
+            isErrorVisible = true;
+            errorMessage = responseText;
+        }
+
+        this.setState({ data: data, isLogged: isLogged, isErrorVisible: isErrorVisible, errorMessage: errorMessage });
+    }
+
     render() {
         return (
             <div className="commentBox">
                 <LoginForm onLoginSubmit={this.handleLoginSubmit} isLogged={this.state.isLogged} />
+                <ErrorBox isVisible={this.state.isErrorVisible} errorMessage={this.state.errorMessage} />
                 <h1>Comments</h1>
                 <CommentList data={this.state.data} />
                 <CommentForm onCommentSubmit={this.handleCommentSubmit} />

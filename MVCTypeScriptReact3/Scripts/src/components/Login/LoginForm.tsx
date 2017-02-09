@@ -14,12 +14,6 @@ export class LoginForm extends React.Component<ILoginFormProps, {}>{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    updateState(isLogged: boolean) {
-        this.setState({
-            isLogged: isLogged
-        });
-    }
-
     handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         this.props.onLoginSubmit();

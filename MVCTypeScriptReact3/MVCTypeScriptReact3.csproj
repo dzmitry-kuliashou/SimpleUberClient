@@ -221,6 +221,7 @@
     <TypeScriptCompile Include="Scripts\src\components\CommentBox\CommentBox.tsx" />
     <TypeScriptCompile Include="Scripts\src\components\CommentBox\CommentForm.tsx" />
     <TypeScriptCompile Include="Scripts\src\components\CommentBox\CommentList.tsx" />
+    <TypeScriptCompile Include="Scripts\src\components\ErrorBox\ErrorBox.tsx" />
     <TypeScriptCompile Include="Scripts\src\components\Login\LoginForm.tsx" />
     <TypeScriptCompile Include="Scripts\src\index2.tsx" />
     <TypeScriptCompile Include="Scripts\src\components\well.tsx" />

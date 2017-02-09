@@ -6,6 +6,8 @@ using MVCTypeScriptReact.Model.AuthorComments;
 using WebApiCaller.Services.AuthorComments;
 using WebApiCaller.Services.Authorization;
 using System.Linq;
+using WebApiCaller.Common;
+using System.Text;
 
 namespace MVCTypeScriptReact3.Controllers
 {
@@ -23,16 +25,18 @@ namespace MVCTypeScriptReact3.Controllers
             _authorizationService = new AuthorizationService();
         }
 
-        private async Task GetAuthorComments()
+        private async Task<ActionResult> GetAuthorComments()
         {
             var serviceResult = await _authorCommentService.GetAuthorComments();
             if (serviceResult.IsSucceed)
             {
                 _comments = serviceResult.Result;
+                return Content("ok");
             }
             else
             {
                 _comments = new List<CommentModel>();
+                return HandleUnsucceedServiceResponse(serviceResult.ErrorCodes);
             }
         }
 
@@ -61,13 +65,7 @@ namespace MVCTypeScriptReact3.Controllers
             }
             else 
             {
-                if (serviceResponse.ErrorCodes.First().Code == 401)
-                {
-                    _comments.Clear();
-                    return Content("unauthorized");
-                }
-
-                return Content("fail");
+                return HandleUnsucceedServiceResponse(serviceResponse.ErrorCodes);
             }
         }
 
@@ -80,8 +78,29 @@ namespace MVCTypeScriptReact3.Controllers
                 await GetAuthorComments();
                 return Content("ok");
             }
+            else
+            {
+                return HandleUnsucceedServiceResponse(serviceResponse.ErrorCodes);
+            }
+        }
 
-            return Content("fail");
+        private ActionResult HandleUnsucceedServiceResponse(List<ErrorCode> errorCodes)
+        {
+            if(errorCodes.First().Code == 401)
+            {
+                _comments.Clear();
+                return Content("unauthorized");
+            }
+            else
+            {
+                StringBuilder errorMessage = new StringBuilder();
+                foreach(var errorCode in errorCodes)
+                {
+                    errorMessage.AppendFormat("{0}|",errorCode.Message);
+                }
+
+                return Content(errorMessage.ToString().TrimEnd('|'));
+            }
         }
     }
 }

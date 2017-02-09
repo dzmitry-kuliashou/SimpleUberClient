@@ -47,7 +47,7 @@
 	"use strict";
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(32);
-	var well_1 = __webpack_require__(184);
+	var well_1 = __webpack_require__(185);
 	ReactDOM.render(React.createElement("div", null, 
 	    React.createElement(well_1.Well, {text: "Well well well"})
 	), document.getElementById("body"));
@@ -21481,7 +21481,8 @@
 /* 181 */,
 /* 182 */,
 /* 183 */,
-/* 184 */
+/* 184 */,
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
