@@ -2,11 +2,13 @@
 using System;
 using System.Reflection;
 
-namespace WebApiCaller.Common
+namespace SimpleUberWebApi.Distribution.Client.Common
 {
     public static class WebApiCaller
     {
         public static readonly string BasicUrl = "http://localhost:100/";
+
+        public static string Token { get; set; }
 
         public static string GetRouteUri(Type type, HttpMethod httpMethod)
         {

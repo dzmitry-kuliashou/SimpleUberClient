@@ -25,9 +25,9 @@ namespace MVCTypeScriptReact3.Controllers
             _authorizationService = new AuthorizationService();
         }
 
-        private async Task<ActionResult> GetAuthorComments()
+        private ActionResult GetAuthorComments()
         {
-            var serviceResult = await _authorCommentService.GetAuthorComments();
+            var serviceResult = _authorCommentService.GetAuthorComments();
             if (serviceResult.IsSucceed)
             {
                 _comments = serviceResult.Result;
@@ -41,9 +41,9 @@ namespace MVCTypeScriptReact3.Controllers
         }
 
         // GET: Home
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            await GetAuthorComments();
+            GetAuthorComments();
             return View();
         }
 
@@ -54,9 +54,9 @@ namespace MVCTypeScriptReact3.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddComment(CommentModel comment)
+        public ActionResult AddComment(CommentModel comment)
         {
-            var serviceResponse = await _authorCommentService.PostNewAuthorComment(comment);
+            var serviceResponse = _authorCommentService.PostNewAuthorComment(comment);
 
             if(serviceResponse.IsSucceed)
             {
@@ -70,12 +70,12 @@ namespace MVCTypeScriptReact3.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Login()
+        public ActionResult Login()
         {
-            var serviceResponse = await _authorizationService.Authorize();
+            var serviceResponse = _authorizationService.Authorize();
             if (serviceResponse.IsSucceed)
             {
-                await GetAuthorComments();
+                GetAuthorComments();
                 return Content("ok");
             }
             else

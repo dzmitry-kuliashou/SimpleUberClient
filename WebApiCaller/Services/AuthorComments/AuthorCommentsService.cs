@@ -1,48 +1,50 @@
 ﻿using MVCTypeScriptReact.Model.AuthorComments;
-using Newtonsoft.Json;
 using SimpleUber.Distribution.Api.Services.AuthorComments;
 using SimpleUber.Distribution.Api.Services.AuthorComments.Entities;
-using System;
+using SimpleUberWebApi.Distribution.Client.ServiceResponseException;
+using SimpleUberWebApi.Distribution.Client.Services.AuthorComments;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using WebApiCaller.Common;
 
 namespace WebApiCaller.Services.AuthorComments
 {
     public class AuthorCommentsService
     {
-        private readonly IApiClient _apiClient;
+        private readonly IAuthorComments _authorCommentsClient;
 
         public AuthorCommentsService()
         {
-            _apiClient = new ApiClient();
+            _authorCommentsClient = new AuthorCommentsClient();
         }
 
-        public async Task<ServiceResponse<List<CommentModel>>> GetAuthorComments()
+        public ServiceResponse<List<CommentModel>> GetAuthorComments()
         {
-            var routeUri =
-                WebApiCaller.Common.WebApiCaller.GetRouteUri(typeof(IAuthorComments), SimpleUber.Distribution.Api.Common.HttpMethod.Get);
-
-            var webApiResult = await _apiClient.SendGetRequestAsync(routeUri, AuthorizationToken.Token);
-
-            var authorComments = webApiResult.IsSuccessStatusCode
-                ? JsonConvert.DeserializeObject<List<AuthorComment>>(webApiResult.Result)
-                : new List<AuthorComment>();
-
-            var commentModels = authorComments.Select(x => new CommentModel { Author = x.Author, Text = x.Comment }).ToList();
-            return new ServiceResponse<List<CommentModel>>(webApiResult.IsSuccessStatusCode, commentModels, webApiResult.ErrorCodes);
+            try
+            {
+                var authorComments = _authorCommentsClient.GetAuthorComments();
+                var commentModels = authorComments.Select(x => new CommentModel { Author = x.Author, Text = x.Comment }).ToList();
+                return new ServiceResponse<List<CommentModel>>(true, commentModels, null);
+            }
+            catch(ServiceResponseException ex)
+            {
+                return new ServiceResponse<List<CommentModel>>(false, null, ex.ErrorCodes);
+            }
         }
 
-        public async Task<ServiceResponse<int>> PostNewAuthorComment(CommentModel commentModel)
+        public ServiceResponse<int> PostNewAuthorComment(CommentModel commentModel)
         {
             var authorComment = new AuthorComment { Author = commentModel.Author, Comment = commentModel.Text };
 
-            var routeUri =
-                WebApiCaller.Common.WebApiCaller.GetRouteUri(typeof(IAuthorComments), SimpleUber.Distribution.Api.Common.HttpMethod.Post);
-
-            var webApiResult = await _apiClient.SendPostRequestAsync(routeUri, authorComment, AuthorizationToken.Token);
-            return new ServiceResponse<int>(webApiResult);
+            try
+            {
+                var authorCommentId = _authorCommentsClient.CreateNewComment(authorComment);
+                return new ServiceResponse<int>(true, authorCommentId, null);
+            }
+            catch (ServiceResponseException ex)
+            {
+                return new ServiceResponse<int>(false, 0, ex.ErrorCodes);
+            }
         }
     }
 }

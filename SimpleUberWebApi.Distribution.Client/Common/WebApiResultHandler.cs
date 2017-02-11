@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace WebApiCaller.Common
+namespace SimpleUberWebApi.Distribution.Client.Common
 {
     public class WebApiResultHandler
     {

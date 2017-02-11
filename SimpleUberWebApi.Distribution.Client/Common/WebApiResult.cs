@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WebApiCaller.Common
+namespace SimpleUberWebApi.Distribution.Client.Common
 {
     public class WebApiResult
     {

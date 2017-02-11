@@ -1,31 +1,32 @@
 ﻿using SimpleUber.Distribution.Api.Services.Authorization;
-using System.Threading.Tasks;
+using SimpleUberWebApi.Distribution.Client.ServiceResponseException;
+using SimpleUberWebApi.Distribution.Client.Services.Authorization;
 using WebApiCaller.Common;
 
 namespace WebApiCaller.Services.Authorization
 {
     public class AuthorizationService
     {
-        private readonly IApiClient _apiClient;
+        private readonly IAuthorization _authorizationClient;
 
         public AuthorizationService()
         {
-            _apiClient = new ApiClient();
+            _authorizationClient = new AuthorizationClient();
         }
 
-        public async Task<ServiceResponse<string>> Authorize()
+        public ServiceResponse<string> Authorize()
         {
-            var routeUri =
-                WebApiCaller.Common.WebApiCaller.GetRouteUri(typeof(IAuthorization), SimpleUber.Distribution.Api.Common.HttpMethod.Post);
-
-            var webApiResult = await _apiClient.SendPostRequestAsync(routeUri, null, null);
-
-            if (webApiResult.IsSuccessStatusCode)
+            try
             {
-                AuthorizationToken.Token = webApiResult.Result.Replace("\"", "");
-            }
+                var token = _authorizationClient.Authorize().Replace("\"", "");
+                SimpleUberWebApi.Distribution.Client.Common.WebApiCaller.Token = token;
 
-            return new ServiceResponse<string>(webApiResult.IsSuccessStatusCode, AuthorizationToken.Token, webApiResult.ErrorCodes);
+                return new ServiceResponse<string>(true, token, null);
+            }
+            catch (ServiceResponseException ex)
+            {
+                return new ServiceResponse<string>(false, string.Empty, ex.ErrorCodes);
+            }
         }
     }
 }
