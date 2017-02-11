@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B4228BE3-1EF4-47CE-A547-B40D336C2570}</ProjectGuid>
+    <ProjectGuid>{E20FA4F2-AC70-4A8F-A8CB-0E5CB98B9DAA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SimpleUberWebApi.Distribution.Client</RootNamespace>
-    <AssemblyName>SimpleUberWebApi.Distribution.Client</AssemblyName>
+    <RootNamespace>MVCTypeScriptReact3.Config</RootNamespace>
+    <AssemblyName>MVCTypeScriptReact3.Config</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -38,60 +38,32 @@
       <HintPath>..\packages\Castle.Windsor.3.4.0\lib\net45\Castle.Windsor.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.2-beta2\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SimpleUber.Distribution.Api">
-      <HintPath>..\DLLs\SimpleUber.Distribution.Api.dll</HintPath>
-    </Reference>
-    <Reference Include="SimpleUber.Errors">
-      <HintPath>..\DLLs\SimpleUber.Errors.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Net" />
-    <Reference Include="System.Net.Http">
-      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Extensions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Formatting.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Primitives.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Net.Http.WebRequest">
-      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\WebApiCaller.cs" />
-    <Compile Include="Common\WebApiResult.cs" />
-    <Compile Include="Common\WebApiResultHandler.cs" />
-    <Compile Include="Installers\WindsorInstaller.cs" />
+    <Compile Include="Installers\InstallWindsorRegistrators.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceResponseException\ServiceResponseException.cs" />
-    <Compile Include="Services\AuthorComments\AuthorCommentsClient.cs" />
-    <Compile Include="Services\Authorization\AuthorizationClient.cs" />
-    <Compile Include="Services\BaseApiClient\BaseApiClient.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleUberWebApi.Distribution.Client\SimpleUberWebApi.Distribution.Client.csproj">
+      <Project>{b4228be3-1ef4-47ce-a547-b40d336c2570}</Project>
+      <Name>SimpleUberWebApi.Distribution.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebApiCaller\WebApiCaller.csproj">
+      <Project>{147ca949-6824-48fa-bad8-9c9d35aeadd7}</Project>
+      <Name>WebApiCaller</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

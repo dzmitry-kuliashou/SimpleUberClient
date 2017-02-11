@@ -15,14 +15,16 @@ namespace MVCTypeScriptReact3.Controllers
     {
         private static List<CommentModel> _comments;
 
-        private AuthorCommentsService _authorCommentService;
+        private IAuthorCommentsService _authorCommentService;
 
-        private AuthorizationService _authorizationService;
+        private IAuthorizationService _authorizationService;
 
-        public CommentBoxController()
+        public CommentBoxController(
+            IAuthorCommentsService authorCommentService,
+            IAuthorizationService authorizationService)
         {
-            _authorCommentService = new AuthorCommentsService();
-            _authorizationService = new AuthorizationService();
+            _authorCommentService = authorCommentService;
+            _authorizationService = authorizationService;
         }
 
         private ActionResult GetAuthorComments()
@@ -56,7 +58,7 @@ namespace MVCTypeScriptReact3.Controllers
         [HttpPost]
         public ActionResult AddComment(CommentModel comment)
         {
-            var serviceResponse = _authorCommentService.PostNewAuthorComment(comment);
+            var serviceResponse = _authorCommentService.AddNewAuthorComment(comment);
 
             if(serviceResponse.IsSucceed)
             {

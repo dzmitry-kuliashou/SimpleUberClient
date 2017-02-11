@@ -1,17 +1,16 @@
 ﻿using SimpleUber.Distribution.Api.Services.Authorization;
 using SimpleUberWebApi.Distribution.Client.ServiceResponseException;
-using SimpleUberWebApi.Distribution.Client.Services.Authorization;
 using WebApiCaller.Common;
 
 namespace WebApiCaller.Services.Authorization
 {
-    public class AuthorizationService
+    public class AuthorizationService : IAuthorizationService
     {
         private readonly IAuthorization _authorizationClient;
 
-        public AuthorizationService()
+        public AuthorizationService(IAuthorization authorizationClient)
         {
-            _authorizationClient = new AuthorizationClient();
+            _authorizationClient = authorizationClient;
         }
 
         public ServiceResponse<string> Authorize()

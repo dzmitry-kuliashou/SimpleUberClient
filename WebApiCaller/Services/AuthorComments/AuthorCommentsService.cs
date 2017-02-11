@@ -2,20 +2,19 @@
 using SimpleUber.Distribution.Api.Services.AuthorComments;
 using SimpleUber.Distribution.Api.Services.AuthorComments.Entities;
 using SimpleUberWebApi.Distribution.Client.ServiceResponseException;
-using SimpleUberWebApi.Distribution.Client.Services.AuthorComments;
 using System.Collections.Generic;
 using System.Linq;
 using WebApiCaller.Common;
 
 namespace WebApiCaller.Services.AuthorComments
 {
-    public class AuthorCommentsService
+    public class AuthorCommentsService : IAuthorCommentsService
     {
         private readonly IAuthorComments _authorCommentsClient;
 
-        public AuthorCommentsService()
+        public AuthorCommentsService(IAuthorComments authorCommentsClient)
         {
-            _authorCommentsClient = new AuthorCommentsClient();
+            _authorCommentsClient = authorCommentsClient;
         }
 
         public ServiceResponse<List<CommentModel>> GetAuthorComments()
@@ -32,7 +31,7 @@ namespace WebApiCaller.Services.AuthorComments
             }
         }
 
-        public ServiceResponse<int> PostNewAuthorComment(CommentModel commentModel)
+        public ServiceResponse<int> AddNewAuthorComment(CommentModel commentModel)
         {
             var authorComment = new AuthorComment { Author = commentModel.Author, Comment = commentModel.Text };
 
