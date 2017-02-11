@@ -27,6 +27,8 @@ namespace MVCTypeScriptReact3
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            SimpleUber.Client.Common.WebApiCaller.BasicUrl = "http://localhost:100/";
         }
     }
 }

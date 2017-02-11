@@ -1,5 +1,5 @@
 ﻿using SimpleUber.Distribution.Api.Services.Authorization;
-using SimpleUberWebApi.Distribution.Client.ServiceResponseException;
+using SimpleUber.Errors.ServiceResponseException;
 using WebApiCaller.Common;
 
 namespace WebApiCaller.Services.Authorization
@@ -18,7 +18,9 @@ namespace WebApiCaller.Services.Authorization
             try
             {
                 var token = _authorizationClient.Authorize().Replace("\"", "");
-                SimpleUberWebApi.Distribution.Client.Common.WebApiCaller.Token = token;
+
+                //TODO change it some way to avoid uding SimpleUber.Client libraty
+                SimpleUber.Client.Common.WebApiCaller.Token = token;
 
                 return new ServiceResponse<string>(true, token, null);
             }

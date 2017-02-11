@@ -42,6 +42,9 @@
       <HintPath>..\packages\CommonSerializer.1.0.1\lib\net45\CommonSerializer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SimpleUber.Client">
+      <HintPath>..\DLLs\SimpleUber.Client.dll</HintPath>
+    </Reference>
     <Reference Include="SimpleUber.Distribution.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DLLs\SimpleUber.Distribution.Api.dll</HintPath>
@@ -72,10 +75,6 @@
     <ProjectReference Include="..\MVCTypeScriptReact.Model\MVCTypeScriptReact.Model.csproj">
       <Project>{226a2737-e2b5-4eeb-8626-e3a0651dfb4d}</Project>
       <Name>MVCTypeScriptReact.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimpleUberWebApi.Distribution.Client\SimpleUberWebApi.Distribution.Client.csproj">
-      <Project>{b4228be3-1ef4-47ce-a547-b40d336c2570}</Project>
-      <Name>SimpleUberWebApi.Distribution.Client</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

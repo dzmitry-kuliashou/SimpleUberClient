@@ -1,7 +1,7 @@
 ﻿using MVCTypeScriptReact.Model.AuthorComments;
 using SimpleUber.Distribution.Api.Services.AuthorComments;
 using SimpleUber.Distribution.Api.Services.AuthorComments.Entities;
-using SimpleUberWebApi.Distribution.Client.ServiceResponseException;
+using SimpleUber.Errors.ServiceResponseException;
 using System.Collections.Generic;
 using System.Linq;
 using WebApiCaller.Common;

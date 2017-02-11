@@ -38,6 +38,9 @@
       <HintPath>..\packages\Castle.Windsor.3.4.0\lib\net45\Castle.Windsor.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SimpleUber.Client">
+      <HintPath>..\DLLs\SimpleUber.Client.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -56,10 +59,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SimpleUberWebApi.Distribution.Client\SimpleUberWebApi.Distribution.Client.csproj">
-      <Project>{b4228be3-1ef4-47ce-a547-b40d336c2570}</Project>
-      <Name>SimpleUberWebApi.Distribution.Client</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WebApiCaller\WebApiCaller.csproj">
       <Project>{147ca949-6824-48fa-bad8-9c9d35aeadd7}</Project>
       <Name>WebApiCaller</Name>

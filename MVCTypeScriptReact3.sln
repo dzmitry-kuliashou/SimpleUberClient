@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiCaller", "WebApiCalle
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCTypeScriptReact.Model", "MVCTypeScriptReact.Model\MVCTypeScriptReact.Model.csproj", "{226A2737-E2B5-4EEB-8626-E3A0651DFB4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleUberWebApi.Distribution.Client", "SimpleUberWebApi.Distribution.Client\SimpleUberWebApi.Distribution.Client.csproj", "{B4228BE3-1EF4-47CE-A547-B40D336C2570}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCTypeScriptReact3.Config", "MVCTypeScriptReact3.Config\MVCTypeScriptReact3.Config.csproj", "{E20FA4F2-AC70-4A8F-A8CB-0E5CB98B9DAA}"
 EndProject
 Global
@@ -31,10 +29,6 @@ Global
 		{226A2737-E2B5-4EEB-8626-E3A0651DFB4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{226A2737-E2B5-4EEB-8626-E3A0651DFB4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{226A2737-E2B5-4EEB-8626-E3A0651DFB4D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B4228BE3-1EF4-47CE-A547-B40D336C2570}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B4228BE3-1EF4-47CE-A547-B40D336C2570}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B4228BE3-1EF4-47CE-A547-B40D336C2570}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B4228BE3-1EF4-47CE-A547-B40D336C2570}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E20FA4F2-AC70-4A8F-A8CB-0E5CB98B9DAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E20FA4F2-AC70-4A8F-A8CB-0E5CB98B9DAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E20FA4F2-AC70-4A8F-A8CB-0E5CB98B9DAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
