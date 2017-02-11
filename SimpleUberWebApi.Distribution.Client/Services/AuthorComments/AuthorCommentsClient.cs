@@ -2,7 +2,6 @@
 using SimpleUber.Distribution.Api.Services.AuthorComments.Entities;
 using SimpleUberWebApi.Distribution.Client.Services.BaseApiClient;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SimpleUberWebApi.Distribution.Client.Services.AuthorComments
 {
@@ -10,14 +9,12 @@ namespace SimpleUberWebApi.Distribution.Client.Services.AuthorComments
     {
         public  IEnumerable<AuthorComment> GetAuthorComments()
         {
-            var webApiResult = Task.Run(SendGetRequestAsync).Result;
-            return HandleServiceResult<IEnumerable<AuthorComment>>(webApiResult);
+            return SendGet<IEnumerable<AuthorComment>>();
         }
 
         public int CreateNewComment(AuthorComment comment)
         {
-            var webApiResult = Task.Run(() => SendPostRequestAsync(comment)).Result;
-            return HandleServiceResult<int>(webApiResult);
+            return SendPost<int>(comment);
         }
     }
 }

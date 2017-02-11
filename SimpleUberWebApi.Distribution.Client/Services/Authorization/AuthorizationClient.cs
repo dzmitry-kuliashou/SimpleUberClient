@@ -1,6 +1,5 @@
 ﻿using SimpleUber.Distribution.Api.Services.Authorization;
 using SimpleUberWebApi.Distribution.Client.Services.BaseApiClient;
-using System.Threading.Tasks;
 
 namespace SimpleUberWebApi.Distribution.Client.Services.Authorization
 {
@@ -8,8 +7,7 @@ namespace SimpleUberWebApi.Distribution.Client.Services.Authorization
     {
         public string Authorize()
         {
-            var webApiResult = Task.Run(() => SendPostRequestAsync(null)).Result;
-            return HandleServiceResult<string>(webApiResult);
+            return SendPost<string>(null);
         }
     }
 }

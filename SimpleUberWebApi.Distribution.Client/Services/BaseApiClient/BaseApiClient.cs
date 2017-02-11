@@ -19,17 +19,41 @@ namespace SimpleUberWebApi.Distribution.Client.Services.BaseApiClient
             _webApiResultHandler = new WebApiResultHandler();
         }
 
-        protected async Task<WebApiResult> SendDeleteRequestAsync(object content)
+        protected TResult SendPost<TResult>(object content)
+        {
+            var webApiResult = Task.Run(() => SendPostRequestAsync(content)).Result;
+            return HandleServiceResult<TResult>(webApiResult);
+        }
+
+        protected TResult SendPut<TResult>(object content)
+        {
+            var webApiResult = Task.Run(() => SendPutRequestAsync(content)).Result;
+            return HandleServiceResult<TResult>(webApiResult);
+        }
+
+        protected TResult SendGet<TResult>()
+        {
+            var webApiResult = Task.Run(SendGetRequestAsync).Result;
+            return HandleServiceResult<TResult>(webApiResult);
+        }
+
+        protected TResult SendDelete<TResult>(object content)
+        {
+            var webApiResult = Task.Run(() => SendDeleteRequestAsync(content)).Result;
+            return HandleServiceResult<TResult>(webApiResult);
+        }
+
+        private async Task<WebApiResult> SendDeleteRequestAsync(object content)
         {
             throw new NotImplementedException();
         }
 
-        protected async Task<WebApiResult> SendPutRequestAsync(object content)
+        private async Task<WebApiResult> SendPutRequestAsync(object content)
         {
             throw new NotImplementedException();
         }
 
-        protected async Task<WebApiResult> SendGetRequestAsync()
+        private async Task<WebApiResult> SendGetRequestAsync()
         {
             using (var client = new HttpClient())
             {
@@ -47,7 +71,7 @@ namespace SimpleUberWebApi.Distribution.Client.Services.BaseApiClient
             }
         }
 
-        protected async Task<WebApiResult> SendPostRequestAsync(object content)
+        private async Task<WebApiResult> SendPostRequestAsync(object content)
         {
             using (var client = new HttpClient())
             {
@@ -67,7 +91,7 @@ namespace SimpleUberWebApi.Distribution.Client.Services.BaseApiClient
             }
         }
 
-        protected TResult HandleServiceResult<TResult>(WebApiResult webApiResult)
+        private TResult HandleServiceResult<TResult>(WebApiResult webApiResult)
         {
             if(webApiResult.IsSuccessStatusCode)
             {
