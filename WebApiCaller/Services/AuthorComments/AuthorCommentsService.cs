@@ -27,7 +27,7 @@ namespace WebApiCaller.Services.AuthorComments
             }
             catch(ServiceResponseException ex)
             {
-                return new ServiceResponse<List<CommentModel>>(false, null, ex.ErrorCodes);
+                return new ServiceResponse<List<CommentModel>>(false, new List<CommentModel>(), ex.ErrorCodes);
             }
         }
 

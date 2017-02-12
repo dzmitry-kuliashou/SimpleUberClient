@@ -26,6 +26,8 @@ namespace WebApiCaller.Services.Authorization
             }
             catch (ServiceResponseException ex)
             {
+                SimpleUber.Client.Common.WebApiCaller.Token = string.Empty;
+
                 return new ServiceResponse<string>(false, string.Empty, ex.ErrorCodes);
             }
         }
