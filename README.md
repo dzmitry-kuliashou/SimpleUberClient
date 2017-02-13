@@ -1,6 +1,6 @@
 # SimpleUberClient
 Client using SimpleUberWebApi service
-It's very simple web application - only one page, no web-design.
+It's very simple web application - only one page (CommentBox, implemented by React component /MVCTypeScriptReact3/Scripts/src/CommentBoxIndex.tsx), very poor web-design.
 I cannot say, that I'm good front-end developer, as mostly I work with back-end code. So, this project had two main goals:
 1. Try MVC+TypeScript+React technology
 2. Create real client for WebApi services, which you can find in SimpleUberWebApi project - https://github.com/dzmitry-kuliashou/SimpleUberWebApi
